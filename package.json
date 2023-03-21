@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "start:dev": "nodemon server.js"
+    "start": "node backend/server.js",
+    "start:dev": "node server.js",
+    "cyclic-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "zahid",
   "license": "ISC",

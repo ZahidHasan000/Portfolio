@@ -9,7 +9,8 @@ const http = require('http');
 const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary");
 
-const userRouter = require ("./routes/userRoutes")
+const userRouter = require ("./routes/userRoutes");
+const path = require('path');
 
 dotenv.config({ path: './config/config.env' });
 const server = http.createServer(app);
@@ -20,6 +21,12 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 
 app.use("/api/v1", userRouter);
+
+app.use(express.static(path.resolve("./frontend/build")))
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("./frontend/build/index.html"))
+})
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
